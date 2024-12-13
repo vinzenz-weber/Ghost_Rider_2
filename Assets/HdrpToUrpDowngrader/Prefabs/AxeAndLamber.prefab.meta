@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ad868b8a31a40461497683d14f64694e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 238237
+  packageName: HDRP to URP Downgrader
+  packageVersion: 1.1
+  assetPath: Assets/HdrpToUrpDowngrader/Prefabs/AxeAndLamber.prefab
+  uploadId: 659343

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 29b873a78ad5049a0830337a13515b8b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 238237
+  packageName: HDRP to URP Downgrader
+  packageVersion: 1.1
+  assetPath: Assets/HdrpToUrpDowngrader/Prefabs/Wall.prefab
+  uploadId: 659343

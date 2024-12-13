@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a55b549f8ed3040899e6b47f18b235d9
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 238237
+  packageName: HDRP to URP Downgrader
+  packageVersion: 1.1
+  assetPath: Assets/HdrpToUrpDowngrader/Models/StreetLight/Materials and Textures/Material_StreetLight.mat
+  uploadId: 659343

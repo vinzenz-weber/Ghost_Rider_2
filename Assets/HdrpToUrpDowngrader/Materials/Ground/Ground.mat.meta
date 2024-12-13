@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 18efa5d83807040c69b00f7c265a2229
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 238237
+  packageName: HDRP to URP Downgrader
+  packageVersion: 1.1
+  assetPath: Assets/HdrpToUrpDowngrader/Materials/Ground/Ground.mat
+  uploadId: 659343
