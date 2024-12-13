@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b22fd7b63e1aa464492dcfb0a123d0d7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 238237
+  packageName: HDRP to URP Downgrader
+  packageVersion: 1.1
+  assetPath: Assets/HdrpToUrpDowngrader/Models/Tree/Materials and Textures/Material_Tree.mat
+  uploadId: 659343

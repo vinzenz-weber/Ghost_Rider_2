@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 595bee51772b8dc4998b057313ce6797
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 166040
+  packageName: Snaps Art HD | Sci-fi Urban
+  packageVersion: 1.0
+  assetPath: Assets/AssetStoreOriginals/SciFi_Colony/Scripts/Rotator.cs
+  uploadId: 361100
