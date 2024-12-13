@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7fa2e9c2ccc2b4d249276f4af2416446
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 238237
+  packageName: HDRP to URP Downgrader
+  packageVersion: 1.1
+  assetPath: Assets/HdrpToUrpDowngrader/Models/Wall/Materials and Textures/Material_Wall.mat
+  uploadId: 659343

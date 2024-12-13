@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d34cb980bc2e84510af6525e222cbda0
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 238237
+  packageName: HDRP to URP Downgrader
+  packageVersion: 1.1
+  assetPath: Assets/HdrpToUrpDowngrader/Documentation/HDRP to URP Downgrader Documentation.pdf
+  uploadId: 659343

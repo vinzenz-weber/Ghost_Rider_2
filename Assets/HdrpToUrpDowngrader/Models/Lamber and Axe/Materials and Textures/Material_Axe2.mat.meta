@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7980853b6bcfd4fdabf2b9eb0a47704b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 238237
+  packageName: HDRP to URP Downgrader
+  packageVersion: 1.1
+  assetPath: Assets/HdrpToUrpDowngrader/Models/Lamber and Axe/Materials and Textures/Material_Axe2.mat
+  uploadId: 659343
