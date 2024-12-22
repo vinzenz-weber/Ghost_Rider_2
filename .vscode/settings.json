@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Ghost_Runner_2.sln"
+    "dotnet.defaultSolution": "Ghost_Rider_2.sln"
 }
