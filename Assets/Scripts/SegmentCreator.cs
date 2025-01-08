@@ -10,7 +10,9 @@ public GameObject[] segment;
 int zPos = 48;
 
 [SerializeField] 
-bool creatingSegment = false;
+//bool creatingSegment = false;
+
+public CollisionChecker collisionChecker;
 
 [SerializeField]int segmentNum;
 
@@ -19,10 +21,23 @@ bool creatingSegment = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Update()
     {
-        if(creatingSegment == false) {
-            creatingSegment = true;
-            StartCoroutine(SegmentGen());
+        if(collisionChecker.isColliding == true) {
+            
+            createSegment();
         }
+    }
+
+    public void createSegment() {
+        
+            segmentNum = Random.Range(0, segment.Length);
+            Instantiate(segment[segmentNum], new Vector3(0, 0, zPos), Quaternion.identity);
+
+        zPos += 48;
+
+        collisionChecker.isColliding = false;
+
+
+        
     }
 
 
@@ -34,7 +49,7 @@ bool creatingSegment = false;
         zPos += 48;
 
         yield return new WaitForSeconds(4);
-        creatingSegment = false;
+        //creatingSegment = false;
 
 
     }
