@@ -19,7 +19,7 @@ public bool isColliding = false;
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "ColliderSpawner") {
+        if(collision.gameObject.tag == "SegmentEnd") {
             isColliding = true;
             Debug.Log("Colliding");
         }

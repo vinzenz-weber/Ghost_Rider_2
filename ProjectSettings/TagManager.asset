@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - ColliderSpawner
+  - SegmentStart
+  - SegmentEnd
+  - Enemy
   layers:
   - Default
   - TransparentFX
