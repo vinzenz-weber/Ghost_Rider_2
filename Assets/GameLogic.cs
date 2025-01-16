@@ -1,12 +1,33 @@
+using TMPro;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem.XR.Haptics;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class GameLogic : MonoBehaviour
 {
     public PlayerHealth playerHealth;
+    public PlayerMovement playerMovement;
+    public SegmentCreator segmentCreator;
+
+    private bool starterSegmentscreated = false;
+
+    private float elapsedTime = 0;
+
+    [Header("UI Elements")]
+    public GameObject InGameUI;
+    public GameObject GameOverUI;
+    public GameObject MainMenuUI;
+
+    public TextMeshProUGUI livesText;
+    public TextMeshProUGUI scoreText;
+
+
+
+    [SerializeField]
+    private int score = 0;
 
 
 
@@ -28,6 +49,8 @@ public class GameLogic : MonoBehaviour
 
     void Update()
     {
+
+
         switch (currentState)
         {
             case GameState.MainMenu:
@@ -39,6 +62,16 @@ public class GameLogic : MonoBehaviour
             case GameState.GameOver:
                 HandleGameOver();
                 break;
+        }
+
+
+        if(GameState.Playing == currentState)
+        {
+                    // Update elapsed time
+        elapsedTime += Time.deltaTime;
+
+        // Calculate score based on elapsed time (e.g., 10 points per second)
+        score = Mathf.FloorToInt(elapsedTime * 10);
         }
     }
 
@@ -77,10 +110,16 @@ public class GameLogic : MonoBehaviour
     {
         // Clean up resources if needed
         Debug.Log($"Exiting {state}");
+
+        score = 0;
     }
 
     void HandleMainMenu()
     {
+        GameOverUI.SetActive(false);
+        InGameUI.SetActive(false);
+        MainMenuUI.SetActive(true);
+
         if (Input.GetKeyDown(KeyCode.Space)) // Example input to start
         {
             ChangeState(GameState.Playing);
@@ -89,6 +128,26 @@ public class GameLogic : MonoBehaviour
 
     void HandlePlaying()
     {
+
+        if(starterSegmentscreated == false)
+        {
+            segmentCreator.PlaceStartSegments();
+            starterSegmentscreated = true;
+        }
+
+        
+
+
+
+        GameOverUI.SetActive(false);
+        InGameUI.SetActive(true);
+        MainMenuUI.SetActive(false);
+
+        livesText.text = "Lives: " + playerHealth.health.ToString();
+        scoreText.text = "Score: " + score.ToString();
+
+
+
         if (playerHealth.GameOver == true) // Example input to end game
         {
             ChangeState(GameState.GameOver);
@@ -99,13 +158,36 @@ public class GameLogic : MonoBehaviour
     {
         // Logic for Game Over
 
+        GameOverUI.SetActive(true);
+        InGameUI.SetActive(false);
+        MainMenuUI.SetActive(false);
+
         Debug.Log("Gayme Over");
+
+
+        playerMovement.playerSpeed = 0;
+
+        /*
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
         if (Input.GetKeyDown(KeyCode.R)) // Restart game
         {
             ChangeState(GameState.MainMenu);
         }
+        */
+    }
+
+    public void restartGame () {
+
+        playerHealth.health = 3;
+        score = 0;
+        elapsedTime = 0;
+        playerMovement.ResetPlayer();
+        segmentCreator.DestroyStartSegments();
+        starterSegmentscreated = false;
+        
+
+        ChangeState(GameState.Playing);
     }
 
 
