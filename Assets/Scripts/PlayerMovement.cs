@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float playerSpeed = 5.0f; // Speed for forward movement
+    public float playerSpeed = 5.0f; // Initial speed for forward movement
     public float horizontalSpeed = 5.0f; // Speed for horizontal movement
+    public float speedIncreaseRate = 0.1f; // Rate at which the playerSpeed increases per second
+    public float maxSpeed = 20.0f; // Maximum speed limit
     public float rightLimit = 5.5f; // Right boundary
     public float leftLimit = -5.5f; // Left boundary
 
@@ -18,6 +20,9 @@ public class PlayerMovement : MonoBehaviour
     {
         // Update horizontal input based on input source
         HandleInput();
+
+        // Gradually increase the player's forward speed
+        playerSpeed = Mathf.Min(playerSpeed + speedIncreaseRate * Time.deltaTime, maxSpeed);
 
         // Move the player forward
         transform.Translate(Vector3.forward * Time.deltaTime * playerSpeed, Space.World);
@@ -59,9 +64,12 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Mathf.Clamp(horizontalInput, -1.0f, 1.0f);
     }
 
-
-    public void ResetPlayer() {
+    public void ResetPlayer()
+    {
         // Reset player position
         transform.position = new Vector3(0, 0, 0);
+
+        // Reset player speed to initial value
+        playerSpeed = 5.0f;
     }
 }
