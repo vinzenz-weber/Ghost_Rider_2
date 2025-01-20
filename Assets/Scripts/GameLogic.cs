@@ -1,10 +1,9 @@
 using TMPro;
 using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.InputSystem.XR.Haptics;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using System.Collections;
 
 public class GameLogic : MonoBehaviour
 {
@@ -19,6 +18,7 @@ public class GameLogic : MonoBehaviour
     [Header("UI Elements")]
     public GameObject InGameUI;
     public GameObject GameOverUI;
+    public GameObject ReadyUI; // New UI element for the preparation screen
     public TextMeshProUGUI livesText;
     public TextMeshProUGUI scoreText;
 
@@ -26,14 +26,8 @@ public class GameLogic : MonoBehaviour
     public GameObject heart2;
     public GameObject heart3;
 
-
-
     [SerializeField]
     private int score = 0;
-
-
-
-
 
     public GameState currentState;
 
@@ -51,8 +45,6 @@ public class GameLogic : MonoBehaviour
 
     void Update()
     {
-
-
         switch (currentState)
         {
             case GameState.MainMenu:
@@ -66,14 +58,13 @@ public class GameLogic : MonoBehaviour
                 break;
         }
 
-
-        if(GameState.Playing == currentState)
+        if (GameState.Playing == currentState)
         {
-                    // Update elapsed time
-        elapsedTime += Time.deltaTime;
+            // Update elapsed time
+            elapsedTime += Time.deltaTime;
 
-        // Calculate score based on elapsed time (e.g., 10 points per second)
-        score = Mathf.FloorToInt(elapsedTime * 10);
+            // Calculate score based on elapsed time (e.g., 10 points per second)
+            score = Mathf.FloorToInt(elapsedTime * 10);
         }
     }
 
@@ -99,7 +90,7 @@ public class GameLogic : MonoBehaviour
         else if (state == GameState.Playing)
         {
             Debug.Log("Starting Game");
-            // Start gameplay
+            StartCoroutine(StartPlayingWithDelay());
         }
         else if (state == GameState.GameOver)
         {
@@ -110,53 +101,43 @@ public class GameLogic : MonoBehaviour
 
     void OnStateExit(GameState state)
     {
-        // Clean up resources if needed
         Debug.Log($"Exiting {state}");
-
         score = 0;
+    }
+
+    IEnumerator StartPlayingWithDelay()
+    {
+        ReadyUI.SetActive(true); // Show "Get Ready" UI
+        InGameUI.SetActive(false);
+        GameOverUI.SetActive(false);
+
+        playerMovement.enabled = false; // Disable player movement during preparation
+
+        yield return new WaitForSeconds(3); // Wait for 3 seconds
+
+        ReadyUI.SetActive(false); // Hide "Get Ready" UI
+        InGameUI.SetActive(true);
+
+        playerMovement.enabled = true; // Enable player movement
+
+        Debug.Log("Game Started");
     }
 
     void HandleMainMenu()
     {
-        SceneManager.LoadScene(1); // Lädt die Szene mit Index 0 (MainMenu sollte an erster Stelle in den Build-Einstellungen stehen)
+        SceneManager.LoadScene(1); // Load the Main Menu scene
     }
 
     void HandlePlaying()
     {
-        GameOverUI.SetActive(false);
-        InGameUI.SetActive(true);
-
         livesText.text = "Lives: " + playerHealth.health.ToString();
         scoreText.text = score.ToString();
 
-        if(playerHealth.health == 3)
-        {
-            heart1.SetActive(true);
-            heart2.SetActive(true);
-            heart3.SetActive(true);
-        }
-        else if(playerHealth.health == 2)
-        {
-            heart1.SetActive(true);
-            heart2.SetActive(true);
-            heart3.SetActive(false);
-        }
-        else if(playerHealth.health == 1)
-        {
-            heart1.SetActive(true);
-            heart2.SetActive(false);
-            heart3.SetActive(false);
-        }
-        else if(playerHealth.health == 0)
-        {
-            heart1.SetActive(false);
-            heart2.SetActive(false);
-            heart3.SetActive(false);
-        }
+        heart1.SetActive(playerHealth.health >= 1);
+        heart2.SetActive(playerHealth.health >= 2);
+        heart3.SetActive(playerHealth.health >= 3);
 
-
-
-        if (playerHealth.GameOver == true) // Example input to end game
+        if (playerHealth.GameOver)
         {
             ChangeState(GameState.GameOver);
         }
@@ -164,38 +145,13 @@ public class GameLogic : MonoBehaviour
 
     void HandleGameOver()
     {
-        // Logic for Game Over
-
         GameOverUI.SetActive(true);
         InGameUI.SetActive(false);
-
-
-        //Debug.Log("Gayme Over");
-
-
         playerMovement.playerSpeed = 0;
-
-        /*
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentSceneName);
-        if (Input.GetKeyDown(KeyCode.R)) // Restart game
-        {
-            ChangeState(GameState.MainMenu);
-        }
-        */
     }
 
-    public void restartGame () {
-
-        /*
-        playerHealth.health = 3;
-        score = 0;
-        elapsedTime = 0;
-        playerMovement.ResetPlayer();
-        segmentCreator.DestroyStartSegments();
-        starterSegmentscreated = false;
-        */
-
+    public void restartGame()
+    {
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
     }
@@ -204,7 +160,4 @@ public class GameLogic : MonoBehaviour
     {
         ChangeState(GameState.MainMenu);
     }
-
-
 }
-
