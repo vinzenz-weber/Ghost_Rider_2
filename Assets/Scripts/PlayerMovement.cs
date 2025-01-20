@@ -58,4 +58,10 @@ public class PlayerMovement : MonoBehaviour
         // Clamp the input to ensure it stays within a valid range
         horizontalInput = Mathf.Clamp(horizontalInput, -1.0f, 1.0f);
     }
+
+
+    public void ResetPlayer() {
+        // Reset player position
+        transform.position = new Vector3(0, 0, 0);
+    }
 }

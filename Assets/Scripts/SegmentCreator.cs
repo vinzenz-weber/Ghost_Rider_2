@@ -5,9 +5,11 @@ public class SegmentCreator : MonoBehaviour
 {
 public GameObject[] segment;
 
+public GameObject StarterSegments;
+
 
 [SerializeField]
-int zPos = 48;
+int zPos = 144;
 
 [SerializeField] 
 //bool creatingSegment = false;
@@ -52,5 +54,15 @@ public CollisionChecker collisionChecker;
         //creatingSegment = false;
 
 
+    }
+
+    public void PlaceStartSegments ()
+    {
+        Instantiate(StarterSegments, new Vector3(0, 0, 0), Quaternion.identity);
+    }
+
+    public void DestroyStartSegments ()
+    {
+        Destroy(StarterSegments);
     }
 }
