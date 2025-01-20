@@ -5,11 +5,11 @@ public class SegmentCreator : MonoBehaviour
 {
 public GameObject[] segment;
 
-public GameObject StarterSegments;
+//public GameObject StarterSegments;
 
 
 [SerializeField]
-int zPos = 144;
+int zPos = 208;
 
 [SerializeField] 
 //bool creatingSegment = false;
@@ -18,13 +18,20 @@ public CollisionChecker collisionChecker;
 
 [SerializeField]int segmentNum;
 
+void Start() {
+    zPos = 208;
+}
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Update()
     {
-        if(collisionChecker.isColliding == true) {
-            
+        if(collisionChecker.isColliding == true) 
+        {
+            Debug.Log(zPos);
+
+
             createSegment();
         }
     }
@@ -32,9 +39,9 @@ public CollisionChecker collisionChecker;
     public void createSegment() {
         
             segmentNum = Random.Range(0, segment.Length);
-            Instantiate(segment[segmentNum], new Vector3(0, 0, zPos), Quaternion.identity);
+            Instantiate(segment[segmentNum], new Vector3(0, -0.5f, zPos), Quaternion.identity);
 
-        zPos += 48;
+        zPos += 52;
 
         collisionChecker.isColliding = false;
 
@@ -56,6 +63,8 @@ public CollisionChecker collisionChecker;
 
     }
 
+    /*
+
     public void PlaceStartSegments ()
     {
         Instantiate(StarterSegments, new Vector3(0, 0, 0), Quaternion.identity);
@@ -65,4 +74,5 @@ public CollisionChecker collisionChecker;
     {
         Destroy(StarterSegments);
     }
+    */
 }
