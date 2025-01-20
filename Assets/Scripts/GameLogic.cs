@@ -22,6 +22,10 @@ public class GameLogic : MonoBehaviour
     public TextMeshProUGUI livesText;
     public TextMeshProUGUI scoreText;
 
+    public GameObject heart1;
+    public GameObject heart2;
+    public GameObject heart3;
+
 
 
     [SerializeField]
@@ -123,7 +127,32 @@ public class GameLogic : MonoBehaviour
         InGameUI.SetActive(true);
 
         livesText.text = "Lives: " + playerHealth.health.ToString();
-        scoreText.text = "Score: " + score.ToString();
+        scoreText.text = score.ToString();
+
+        if(playerHealth.health == 3)
+        {
+            heart1.SetActive(true);
+            heart2.SetActive(true);
+            heart3.SetActive(true);
+        }
+        else if(playerHealth.health == 2)
+        {
+            heart1.SetActive(true);
+            heart2.SetActive(true);
+            heart3.SetActive(false);
+        }
+        else if(playerHealth.health == 1)
+        {
+            heart1.SetActive(true);
+            heart2.SetActive(false);
+            heart3.SetActive(false);
+        }
+        else if(playerHealth.health == 0)
+        {
+            heart1.SetActive(false);
+            heart2.SetActive(false);
+            heart3.SetActive(false);
+        }
 
 
 
