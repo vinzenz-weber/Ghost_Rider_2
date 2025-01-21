@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
         // Example: horizontalInput = ArduinoInput.GetHorizontal(); 
 
         // Handle phone tilt for WebGL
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        if (Application.platform == RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.Android)
         {
             horizontalInput = Input.acceleration.x; // -1 for left, 1 for right
         }
