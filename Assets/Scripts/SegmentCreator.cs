@@ -19,7 +19,7 @@ public CollisionChecker collisionChecker;
 [SerializeField]int segmentNum;
 
 void Start() {
-    zPos = 208;
+    //zPos = 208;
 }
 
 
