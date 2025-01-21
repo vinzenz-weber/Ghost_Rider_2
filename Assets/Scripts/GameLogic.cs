@@ -31,7 +31,7 @@ public class GameLogic : MonoBehaviour
 
     public GameState currentState;
 
-    public PostProcessingSwitcher postProcessingSwitcher;
+    //public PostProcessingSwitcher postProcessingSwitcher;
 
     public enum GameState
     {
@@ -109,7 +109,7 @@ public class GameLogic : MonoBehaviour
 
     IEnumerator StartPlayingWithDelay()
     {
-        postProcessingSwitcher.SwitchToGameplayProfile(); // Switch to gameplay profile
+        //postProcessingSwitcher.SwitchToGameplayProfile(); // Switch to gameplay profile
         ReadyUI.SetActive(true); // Show "Get Ready" UI
         InGameUI.SetActive(false);
         GameOverUI.SetActive(false);
@@ -161,7 +161,7 @@ public class GameLogic : MonoBehaviour
 
     public void goToMainMenu()
     {
-        postProcessingSwitcher.SwitchToMainMenuProfile(); // Switch to main menu profile
+        //postProcessingSwitcher.SwitchToMainMenuProfile(); // Switch to main menu profile
         ChangeState(GameState.MainMenu);
     }
 }
