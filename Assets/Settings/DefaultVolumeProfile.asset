@@ -173,7 +173,7 @@ MonoBehaviour:
     m_Value: 0
   saturation:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 23.3
 --- !u!114 &-6288072647309666549
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -189,10 +189,10 @@ MonoBehaviour:
   active: 1
   type:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.328
   response:
     m_OverrideState: 1
     m_Value: 0.8
@@ -363,13 +363,13 @@ MonoBehaviour:
     m_Value: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.9
+    m_Value: 0.93
   intensity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1.63
   scatter:
     m_OverrideState: 1
-    m_Value: 0.625
+    m_Value: 0.317
   clamp:
     m_OverrideState: 1
     m_Value: 65472
@@ -480,7 +480,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.5
   tintColor:
     m_OverrideState: 1
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -582,7 +582,7 @@ MonoBehaviour:
   master:
     m_OverrideState: 1
     m_Value:
-      <length>k__BackingField: 2
+      <length>k__BackingField: 4
       m_Loop: 0
       m_ZeroValue: 0
       m_Range: 1
@@ -594,6 +594,24 @@ MonoBehaviour:
           value: 0
           inSlope: 1
           outSlope: 1
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.31401476
+          value: 0.18502206
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.75026345
+          value: 0.82819384
+          inSlope: 1.2421172
+          outSlope: 1.2421172
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
@@ -770,7 +788,7 @@ MonoBehaviour:
   active: 1
   texture:
     m_OverrideState: 1
-    m_Value: {fileID: 0}
+    m_Value: {fileID: 8534537815417165676, guid: 663198a20706e43db91cc68a2c3ab549, type: 3}
     dimension: 1
   contribution:
     m_OverrideState: 1
@@ -790,7 +808,7 @@ MonoBehaviour:
   active: 1
   mode:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 2
   gaussianStart:
     m_OverrideState: 1
     m_Value: 10
@@ -805,22 +823,22 @@ MonoBehaviour:
     m_Value: 0
   focusDistance:
     m_OverrideState: 1
-    m_Value: 10
+    m_Value: 7.89
   aperture:
     m_OverrideState: 1
-    m_Value: 5.6
+    m_Value: 32
   focalLength:
     m_OverrideState: 1
-    m_Value: 50
+    m_Value: 178
   bladeCount:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 6
   bladeCurvature:
     m_OverrideState: 1
     m_Value: 1
   bladeRotation:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 3
 --- !u!114 &4251301726029935498
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -852,7 +870,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.119
 --- !u!114 &6940869943325143175
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -887,7 +905,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.28
   smoothness:
     m_OverrideState: 1
     m_Value: 0.2
