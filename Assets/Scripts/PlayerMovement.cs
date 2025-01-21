@@ -2,27 +2,49 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float playerSpeed = 5.0f; // Initial speed for forward movement
+    public float initialSpeed = 5.0f; // Speed after ramp-up
     public float horizontalSpeed = 5.0f; // Speed for horizontal movement
-    public float speedIncreaseRate = 0.1f; // Rate at which the playerSpeed increases per second
+    public float speedIncreaseRate = 0.1f; // Rate at which the speed increases per second
     public float maxSpeed = 20.0f; // Maximum speed limit
     public float rightLimit = 5.5f; // Right boundary
     public float leftLimit = -5.5f; // Left boundary
+    public float rampUpDuration = 4.0f; // Time to ramp up to the initial speed
 
     private float horizontalInput = 0.0f;
+    public float playerSpeed = 0.0f; // Start speed at 0
+    private bool rampUpComplete = false;
+    private float rampUpTimeElapsed = 0.0f;
 
     void Start()
     {
-        // Initialization if needed
+        // Initialize player speed and state
+        playerSpeed = 0.0f;
+        rampUpComplete = false;
+        rampUpTimeElapsed = 0.0f;
     }
 
     void Update()
     {
-        // Update horizontal input based on input source
+        // Handle horizontal input
         HandleInput();
 
-        // Gradually increase the player's forward speed
-        playerSpeed = Mathf.Min(playerSpeed + speedIncreaseRate * Time.deltaTime, maxSpeed);
+        // Gradually ramp up speed over the ramp-up duration
+        if (!rampUpComplete)
+        {
+            rampUpTimeElapsed += Time.deltaTime;
+            playerSpeed = Mathf.Lerp(0.0f, initialSpeed, rampUpTimeElapsed / rampUpDuration);
+
+            if (rampUpTimeElapsed >= rampUpDuration)
+            {
+                rampUpComplete = true;
+                playerSpeed = initialSpeed; // Ensure speed reaches the initial value
+            }
+        }
+        else
+        {
+            // Apply normal speed increase rate after ramp-up
+            playerSpeed = Mathf.Min(playerSpeed + speedIncreaseRate * Time.deltaTime, maxSpeed);
+        }
 
         // Move the player forward
         transform.Translate(Vector3.forward * Time.deltaTime * playerSpeed, Space.World);
@@ -69,7 +91,9 @@ public class PlayerMovement : MonoBehaviour
         // Reset player position
         transform.position = new Vector3(0, 0, 0);
 
-        // Reset player speed to initial value
-        playerSpeed = 5.0f;
+        // Reset player speed and ramp-up state
+        playerSpeed = 0.0f;
+        rampUpComplete = false;
+        rampUpTimeElapsed = 0.0f;
     }
 }
