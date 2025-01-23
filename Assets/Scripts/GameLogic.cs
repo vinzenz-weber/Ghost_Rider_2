@@ -42,10 +42,12 @@ public class GameLogic : MonoBehaviour
        GameOver
    }
 
-   void Start()
-   {
-       ChangeState(GameState.Playing);
-   }
+void Start()
+{
+    Time.timeScale = 1f; // Force normal time scale
+    Application.targetFrameRate = 60; // Lock framerate
+    ChangeState(GameState.Playing);
+}
 
    void Update()
    {
