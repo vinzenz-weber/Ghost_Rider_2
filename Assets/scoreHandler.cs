@@ -1,16 +1,42 @@
 using UnityEngine;
+using TMPro;
 
-public class scoreHandler : MonoBehaviour
+public class ScoreHandler : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public TextMeshProUGUI highScoreText;
+    public TextMeshProUGUI currentScoreText;
+    private const string HIGH_SCORE_KEY = "HighScore";
+
+    private void Awake()
     {
-        
+        if (!PlayerPrefs.HasKey(HIGH_SCORE_KEY))
+        {
+            PlayerPrefs.SetInt(HIGH_SCORE_KEY, 0);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateScore(int newScore)
     {
+        int currentHighScore = PlayerPrefs.GetInt(HIGH_SCORE_KEY);
+        if (newScore > currentHighScore)
+        {
+            PlayerPrefs.SetInt(HIGH_SCORE_KEY, newScore);
+            PlayerPrefs.Save();
+        }
+
+        if (currentScoreText != null)
+        {
+            currentScoreText.text = $"Score: {newScore}";
+        }
         
+        if (highScoreText != null)
+        {
+            highScoreText.text = $"High Score: {PlayerPrefs.GetInt(HIGH_SCORE_KEY)}";
+        }
+    }
+
+    public int GetHighScore()
+    {
+        return PlayerPrefs.GetInt(HIGH_SCORE_KEY);
     }
 }
