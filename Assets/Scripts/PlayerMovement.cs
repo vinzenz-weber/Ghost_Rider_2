@@ -1,34 +1,58 @@
 using UnityEngine;
+using System.IO.Ports;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float initialSpeed = 5.0f; // Speed after ramp-up
-    public float horizontalSpeed = 5.0f; // Speed for horizontal movement
-    public float speedIncreaseRate = 0.1f; // Rate at which the speed increases per second
-    public float maxSpeed = 20.0f; // Maximum speed limit
-    public float rightLimit = 5.5f; // Right boundary
-    public float leftLimit = -5.5f; // Left boundary
-    public float rampUpDuration = 4.0f; // Time to ramp up to the initial speed
-
+    public float initialSpeed = 5.0f;
+    public float horizontalSpeed = 40.0f;
+    public float speedIncreaseRate = 0.1f;
+    public float maxSpeed = 20.0f;
+    public float rightLimit = 5.5f;
+    public float leftLimit = -5.5f;
+    public float rampUpDuration = 4.0f;
+    public float smoothingSpeed = 5.0f; // New smoothing parameter
+    
+    private SerialPort port;
+    private bool isSerialRunning = false;
     private float horizontalInput = 0.0f;
-    public float playerSpeed = 0.0f; // Start speed at 0
+    private float targetHorizontalInput = 0.0f; // Target for smoothing
+    public float playerSpeed = 0.0f;
     private bool rampUpComplete = false;
     private float rampUpTimeElapsed = 0.0f;
+    private float currentVelocity = 0f; // For SmoothDamp
 
     void Start()
     {
-        // Initialize player speed and state
         playerSpeed = 0.0f;
         rampUpComplete = false;
         rampUpTimeElapsed = 0.0f;
+        InitializeSerial();
+    }
+
+    private void InitializeSerial()
+    {
+        try
+        {
+            port?.Close();
+            port = new SerialPort("COM7", 115200);
+            port.Open();
+            isSerialRunning = true;
+        }
+        catch
+        {
+            isSerialRunning = false;
+        }
     }
 
     void Update()
     {
-        // Handle horizontal input
         HandleInput();
+        UpdateSpeed();
+        UpdatePosition();
+    }
 
-        // Gradually ramp up speed over the ramp-up duration
+    private void UpdateSpeed()
+    {
         if (!rampUpComplete)
         {
             rampUpTimeElapsed += Time.deltaTime;
@@ -37,63 +61,83 @@ public class PlayerMovement : MonoBehaviour
             if (rampUpTimeElapsed >= rampUpDuration)
             {
                 rampUpComplete = true;
-                playerSpeed = initialSpeed; // Ensure speed reaches the initial value
+                playerSpeed = initialSpeed;
             }
         }
         else
         {
-            // Apply normal speed increase rate after ramp-up
             playerSpeed = Mathf.Min(playerSpeed + speedIncreaseRate * Time.deltaTime, maxSpeed);
         }
+    }
 
-        // Move the player forward
+    private void UpdatePosition()
+    {
+        // Smooth horizontal input using SmoothDamp
+        horizontalInput = Mathf.SmoothDamp(horizontalInput, targetHorizontalInput, ref currentVelocity, 1f / smoothingSpeed);
+
         transform.Translate(Vector3.forward * Time.deltaTime * playerSpeed, Space.World);
 
-        // Calculate new horizontal position
         float newXPosition = transform.position.x + horizontalInput * Time.deltaTime * horizontalSpeed;
-
-        // Clamp the new position within boundaries
         newXPosition = Mathf.Clamp(newXPosition, leftLimit, rightLimit);
-
-        // Apply the new position
         transform.position = new Vector3(newXPosition, transform.position.y, transform.position.z);
     }
 
     private void HandleInput()
     {
-        horizontalInput = 0.0f; // Reset horizontal input
+        float newInput = 0.0f;
 
-        // Handle Arduino input (placeholder - replace with actual Arduino code)
-        // Example: horizontalInput = ArduinoInput.GetHorizontal(); 
-
-        // Handle phone tilt for WebGL
-        if (Application.platform == RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.Android)
+        if (isSerialRunning)
         {
-            horizontalInput = Input.acceleration.x; // -1 for left, 1 for right
+            try
+            {
+                if (port?.BytesToRead > 0)
+                {
+                    string serialData = port.ReadLine().Trim();
+                    
+                    if (float.TryParse(serialData, out float serialValue))
+                    {
+                        newInput = Mathf.Clamp(-serialValue, -1f, 1f);
+                    }
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Serial error: {e.Message}");
+                isSerialRunning = false;
+                InitializeSerial();
+            }
         }
 
-        // Handle keyboard input (fallback for testing or desktop)
+        if (Application.platform == RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.Android)
+        {
+            newInput = Input.acceleration.x;
+        }
+
         if (Input.GetKey(KeyCode.A))
         {
-            horizontalInput -= 1.0f;
+            newInput -= 1.0f;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            horizontalInput += 1.0f;
+            newInput += 1.0f;
         }
 
-        // Clamp the input to ensure it stays within a valid range
-        horizontalInput = Mathf.Clamp(horizontalInput, -1.0f, 1.0f);
+        targetHorizontalInput = Mathf.Clamp(newInput, -1.0f, 1.0f);
     }
 
     public void ResetPlayer()
     {
-        // Reset player position
         transform.position = new Vector3(0, 0, 0);
-
-        // Reset player speed and ramp-up state
         playerSpeed = 0.0f;
         rampUpComplete = false;
         rampUpTimeElapsed = 0.0f;
+        horizontalInput = 0f;
+        targetHorizontalInput = 0f;
+        currentVelocity = 0f;
+    }
+
+    void OnDisable()
+    {
+        port?.Close();
     }
 }

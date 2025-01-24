@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Scripts/Editor.meta
 guid: 5f709141ad68b4a38a18593348539cc5
+========
+guid: 2a1f52ce7c1ab4cd89606e63d9633421
+>>>>>>>> Stashed changes:Assets/Plugins.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

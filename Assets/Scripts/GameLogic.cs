@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameLogic : MonoBehaviour
@@ -9,6 +10,7 @@ public class GameLogic : MonoBehaviour
    public PlayerMovement playerMovement;
    public SegmentCreator segmentCreator;
    public ScoreHandler scoreHandler;
+   public Button restartButton;
 
    private bool starterSegmentscreated = false;
    private float elapsedTime = 0;
@@ -23,7 +25,6 @@ public class GameLogic : MonoBehaviour
    public TextMeshProUGUI scoreText;
    public TextMeshProUGUI gameOverScoreText;
    public TextMeshProUGUI gameOverHighScoreText;
-
    public TextMeshProUGUI IngamaeHighscoreText;
 
    public GameObject heart1;
@@ -152,6 +153,11 @@ void Start()
        
        gameOverScoreText.text = $"Dein Score: {score}";
        gameOverHighScoreText.text = $"Highscore: {scoreHandler.GetHighScore()}";
+
+       if (Input.GetKeyDown(KeyCode.Space))
+       {
+           restartButton.onClick.Invoke();
+       }
 
        gameOverTimer += Time.deltaTime;
        if (gameOverTimer >= GAME_OVER_TIMEOUT)
