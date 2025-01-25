@@ -125,7 +125,7 @@ void Start()
 
    void HandleMainMenu()
    {
-       SceneManager.LoadScene(1);
+       SceneManager.LoadScene(0);
    }
 
    void HandlePlaying()
