@@ -4,7 +4,7 @@ using System.IO.Ports;
 public class PlayerMovement : MonoBehaviour
 {
     public float initialSpeed = 5.0f;
-    public float horizontalSpeed = 40.0f;
+    public float horizontalSpeed;
     public float speedIncreaseRate = 0.1f;
     public float maxSpeed = 20.0f;
     public float rightLimit = 5.5f;
